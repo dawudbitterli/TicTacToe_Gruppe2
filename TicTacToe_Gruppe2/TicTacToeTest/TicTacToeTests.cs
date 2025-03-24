@@ -3,9 +3,15 @@ using TicTacToe_Gruppe2;
 
 namespace TicTacToeTest
 {
+    /// <summary>
+    /// Enthält Unit-Tests für die Tic-Tac-Toe-Spielmechanik.
+    /// </summary>
     [TestClass]
     public sealed class TicTacToeTests
     {
+        /// <summary>
+        /// Testet, ob das Spielfeld nach dem Start leer ist.
+        /// </summary>
         [TestMethod]
         public void Brett_Leer_Nach_Start()
         {
@@ -20,6 +26,9 @@ namespace TicTacToeTest
             }
         }
 
+        /// <summary>
+        /// Testet, ob der Spieler nach einem Zug wechselt.
+        /// </summary>
         [TestMethod]
         public void Spieler_Wechselt()
         {
@@ -31,6 +40,9 @@ namespace TicTacToeTest
             Assert.AreNotEqual(startSpieler, model.CurrentPlayer);
         }
 
+        /// <summary>
+        /// Testet, ob ein Sieg in einer Zeile korrekt erkannt wird.
+        /// </summary>
         [TestMethod]
         public void Sieg_In_Zeile()
         {
@@ -45,6 +57,9 @@ namespace TicTacToeTest
             Assert.AreEqual('X', model.GetWinner());
         }
 
+        /// <summary>
+        /// Testet, ob ein Sieg in einer Spalte korrekt erkannt wird.
+        /// </summary>
         [TestMethod]
         public void Sieg_In_Spalte()
         {
@@ -59,6 +74,9 @@ namespace TicTacToeTest
             Assert.AreEqual('X', model.GetWinner());
         }
 
+        /// <summary>
+        /// Testet, ob ein Sieg in der Diagonale korrekt erkannt wird.
+        /// </summary>
         [TestMethod]
         public void Sieg_In_Diagonale()
         {
@@ -73,6 +91,9 @@ namespace TicTacToeTest
             Assert.AreEqual('X', model.GetWinner());
         }
 
+        /// <summary>
+        /// Testet, ob ein Unentschieden korrekt erkannt wird.
+        /// </summary>
         [TestMethod]
         public void Unentschieden()
         {
@@ -91,8 +112,11 @@ namespace TicTacToeTest
             Assert.AreEqual('\0', model.GetWinner());
         }
 
+        /// <summary>
+        /// Testet, ob ein ungültiger Zug erkannt wird.
+        /// </summary>
         [TestMethod]
-        public void Ungültiger_Zug()
+        public void Ungueltiger_Zug()
         {
             var model = new Model(new SmallBoard());
 
@@ -102,6 +126,9 @@ namespace TicTacToeTest
             Assert.IsFalse(zweiterZug);
         }
 
+        /// <summary>
+        /// Testet, ob ein Zug korrekt auf das Brett gesetzt wird.
+        /// </summary>
         [TestMethod]
         public void Zug_Auf_Brett()
         {
@@ -113,21 +140,27 @@ namespace TicTacToeTest
             Assert.AreEqual('X', model.Board[0][0]);
         }
 
+        /// <summary>
+        /// Testet, ob ein Zug korrekt rückgängig gemacht wird.
+        /// </summary>
         [TestMethod]
-        public void Zug_Rückgängig()
+        public void Zug_Rueckgaengig()
         {
             var model = new Model(new SmallBoard());
             var controller = new Controller(model, new View());
 
             controller.MakeMove(0, 0);
-            bool wurdeRückgängigGemacht = controller.UndoMove();
+            bool wurdeRueckgaengigGemacht = controller.UndoMove();
 
-            Assert.IsTrue(wurdeRückgängigGemacht);
+            Assert.IsTrue(wurdeRueckgaengigGemacht);
             Assert.AreEqual('\0', model.Board[0][0]);
         }
 
+        /// <summary>
+        /// Testet verschiedene Brettgrössen.
+        /// </summary>
         [TestMethod]
-        public void Brett_Grössen()
+        public void Brett_Groessen()
         {
             var small = new Model(new SmallBoard());
             var large = new Model(new LargeBoard());
